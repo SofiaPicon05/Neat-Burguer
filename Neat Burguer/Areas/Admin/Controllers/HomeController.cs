@@ -5,6 +5,7 @@ using Neat_Burguer.Repositories;
 
 namespace Neat_Burguer.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class HomeController : Controller
     {
         private readonly MenuRepository menuRepository;
@@ -42,6 +43,7 @@ namespace Neat_Burguer.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+        [Route("admin/menu/agregar")]
         public IActionResult AgregarMenu()
         {
             var viewModel = new AgregarMenuViewModel()
@@ -94,6 +96,7 @@ namespace Neat_Burguer.Areas.Admin.Controllers
             return RedirectToAction("Menu");
             
         }
+        [Route("admin/menu/editar/{Id}")]
         public IActionResult EditarMenu(string Id)
         {
             Id = Id.Replace("-", " ");
@@ -200,7 +203,7 @@ namespace Neat_Burguer.Areas.Admin.Controllers
             return View(vm);
         }
         [HttpPost]
-        [Route("admin/promocion/quuitar")]
+        [Route("admin/promocion/quitar")]
         public IActionResult QuitarPromocion(QuitarPromocionViewModel vm)
         {
             var entity = menuRepository.Get(vm.IdMenu);

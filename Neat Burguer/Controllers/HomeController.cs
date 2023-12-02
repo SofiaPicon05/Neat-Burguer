@@ -108,7 +108,7 @@ namespace Neat_Burguer.Controllers
             return View(viewModel);
         }
 
-        [Route("promociones/{Id")]
+        [Route("promociones/{Id}")]
         public IActionResult Promociones(string Id)
         {
             Id = Id.Replace('-', ' ');
