@@ -11,7 +11,7 @@ public partial class Menu
 
     public string Descripción { get; set; } = null!;
 
-    public double Precio { get; set; }
+    public decimal? Precio { get; set; }
 
     public int IdClasificacion { get; set; }
 

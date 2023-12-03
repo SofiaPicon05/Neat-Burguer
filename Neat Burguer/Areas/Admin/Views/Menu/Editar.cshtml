@@ -1,48 +1,51 @@
-﻿@model Neat_Burguer.Areas.Admin.Models.ViewModels.AgregarMenuViewModel
+﻿@model Neat_Burguer.Areas.Admin.Models.ViewModels.AdminAgregarViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "LayoutAdmi";
 }
-<form asp-area="admin" asp-controller="home" asp-action="agregarmenu" method="post" enctype="multipart/form-data">
-    <h1>Agregar hamburguesa al menú</h1>
+
+<form action="~/Admin/Menu/Editar" method="post" enctype="multipart/form-data">
+    <h1>Editar hamburguesa del menú</h1>
+
+    <input type="hidden" asp-for="menu.Id" />
+
     <span>
         <label for="nombre">Nombre:</label>
-        <input asp-for="Nombre" type="text" id="nombre" required>
+        <input type="text" id="nombre" required asp-for="menu.Nombre">
     </span>
 
     <span>
         <label for="precio">Precio:</label>
-        <input asp-for="Precio" type="number" id="precio" min="0" step="0.01" required>
+        <input type="number" id="precio" min="0" step="0.01" required asp-for="menu.Precio">
     </span>
 
     <span>
         <label for="descripcion">Descripción:</label>
-        <textarea asp-for="Descripcion" id="descripcion" required></textarea>
+        <textarea id="descripcion" required asp-for="menu.Descripción"></textarea>
     </span>
 
     <span>
         <label for="clasificacion">Clasificación:</label>
-        <select asp-for="IdClasificacion" asp-items="@(new SelectList(Model.Clasificaciones, "Id", "Nombre"))" id="clasificacion" required>
+        <select id="clasificacion" required asp-for="menu.IdClasificacion" asp-items="@(new SelectList(Model.clasificaciones,"Id","Nombre"))">
         </select>
     </span>
 
     <span>
         <label for="imagen">Imagen:</label>
-        <input type="file" asp-for="Archivo" id="imagen" accept="image/png" onchange="previewImagen()">
-        <img id="imagen-preview" src="~/images/burger.png" asp-append-version>
+        <input type="file" id="imagen" accept="image/png" onchange="previewImagen()" asp-for="Archivo">
+        <img id="imagen-preview" src="~/images/burger.png">
     </span>
-
+    @Html.ValidationSummary(true)
     <div class="botones">
-        <input type="submit" value="Agregar" />
-        <a asp-area="admin" asp-controller="home" asp-action="menu">
+        <input type="submit" value="Guardar" />
+        <a href="~/Admin/Menu">
             <input type="button" value="Cancelar" />
         </a>
     </div>
-
-    @Html.ValidationSummary(true)
 </form>
 
 <script>
+
     function previewImagen() {
         const inputImagen = document.getElementById('imagen');
         const imagenPreview = document.getElementById('imagen-preview');
@@ -64,3 +67,4 @@
         }
     }
 </script>
+

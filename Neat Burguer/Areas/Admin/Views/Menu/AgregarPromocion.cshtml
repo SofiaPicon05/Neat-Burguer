@@ -1,29 +1,31 @@
-﻿@model Neat_Burguer.Areas.Admin.Models.ViewModels.AgregarPromocionViewModel
+﻿@model Neat_Burguer.Areas.Admin.Models.ViewModels.AdminPromocionViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "LayoutAdmi";
 }
 
-<form action="~/admin/promocion/agregar" method="post">
+<form action="~/Admin/Menu/AgregarPromocion" method="post" enctype="multipart/form-data">
     <h1>Agregar un descuento de promoción</h1>
-    <input asp-for="IdMenu" hidden />
+
+    <input type="hidden" asp-for="Id" />
+
     <span>
         <label for="nombre">Nombre:</label>
-        <input asp-for="Nombre" type="text" id="nombre" required>
+        <input type="text" id="nombre" required asp-for="Nombre" readonly>
     </span>
     <span>
         <label for="precio">Precio real:</label>
-        <input asp-for="PrecioOriginal" type="text" id="precio" required>
+        <input type="text" id="precio" required asp-for="Precio" readonly>
     </span>
     <span>
         <label for="promocion">Precio promoción:</label>
-        <input asp-for="PrecioNuevo" type="text" id="promocion" required>
+        <input type="text" id="promocion" required asp-for="PrecioPromocion">
     </span>
     <span class="error">@Html.ValidationSummary(true)</span>
 
     <div class="botones">
         <input type="submit" value="Agregar" />
-        <a asp-area="admin" asp-controller="home" asp-action="menu">
+        <a href="~/Admin/Menu">
             <input type="button" value="Cancelar" />
         </a>
     </div>

@@ -1,23 +1,34 @@
 ﻿@model Neat_Burguer.Models.ViewModels.PromocionesViewModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_Layout";
+
 }
 
-
-
 <section class="menu1">
-    <img src="~/hamburguesas/@(Model.Id).png" asp-append-version />
-    <div class="datos">
-        <h3>
-            <del>@Model.PrecioOriginal.ToString("c")</del>
-            <b>@Model.PrecioNuevo.ToString("c")</b>
-        </h3>
-        <h2>@Model.Nombre.ToUpper()</h2>
-        <p>@Model.Descripcion</p>
-    </div>
-    <span>
-        <a href="~/promociones/@(Model.AnteriorPromocion.ToLower().Replace(" ", "-"))">&lt;</a>
-        <a href="~/promociones/@(Model.SiguientePromocion.ToLower().Replace(" ", "-"))">&gt;</a>
-    </span>
+    @if (Model.PrecioPromocion > 0)
+    {
+        <img src="~/hamburguesas/@(Model.Id).png" />
+        <div class="datos">
+            <h3>
+                <del>@Model.Precio.ToString("c")</del>
+                <b>@Model.PrecioPromocion.ToString("c")</b>
+            </h3>
+            <h2>@Model.Nombre</h2>
+            <p>@Model.Descripcion</p>
+        </div>
+        <span>
+            @if (Model.INDX > 0)
+            {
+                <a href="~/Home/Promociones/@(Model.INDX-1)">&lt;</a>
+            }
+            @if (Model.INDX < Model.INDF - 1)
+            {
+                <a href="~/Home/Promociones/@(Model.INDX+1)">&gt;</a>
+            }
+        </span>
+    }
+    else
+    {
+        <h1>No hay, No Existe</h1>
+    }
 </section>

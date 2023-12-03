@@ -1,0 +1,38 @@
+﻿@model Neat_Burguer.Areas.Admin.Models.ViewModels.AdminMenuViewModel
+@{
+    Layout = "LayoutAdmi";
+}
+<section class="menu2">
+    @foreach (var item in Model.ListaClasicacion)
+    {
+        <h1>@item.Nombre</h1>
+        @foreach (var h in item.Menu)
+        {
+            <div>
+                <img src="~/hamburguesas/@(h.Id).png" />
+                <h1>@h.Nombre</h1>
+                <h2><del>@h.Precio</del><br />@h.PrecioPromocion</h2>
+                <p>
+                    @h.Descripción
+                </p>
+
+                <span class="acciones">
+                    <a href="~/Admin/Menu/Editar/@(h.Id)">Editar</a>
+                    <a href="~/Admin/Menu/Eliminar/@(h.Id)">Eliminar</a>
+                    @if (h.PrecioPromocion == null)
+                    {
+                        <a href="~/Admin/Menu/AgregarPromocion/@(h.Id)">Agregar promoción</a>
+                    }
+                    else
+                    {
+                        <a href="~/Admin/Menu/EliminarPromocion/@(h.Id)">Quitar promoción</a>
+                    }
+                </span>
+
+            </div>
+        }
+
+    }
+
+    <a class="fab" href="~/Admin/Menu/Agregar">+</a>
+</section>

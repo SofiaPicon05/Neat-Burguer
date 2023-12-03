@@ -4,34 +4,46 @@ namespace Neat_Burguer.Repositories
 {
     public class Repository <T> where T : class
     {
-        public Repository(NeatContext ctx)
+      
+        public NeatContext Context { get; }
+        public Repository(NeatContext context)
         {
-            Ctx = ctx;
+            Context = context;
         }
-        public NeatContext Ctx { get; }
-        public virtual IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return Ctx.Set<T>();
+            return Context.Set<T>();
         }
-        public virtual T? Get(object id)
+        public virtual T? Get(string id)
         {
-            return Ctx.Find<T>(id);
+            return Context.Find<T>(id);
         }
-        public virtual void Insert(T entity)
+        public T? GetById(int id)
         {
-            Ctx.Add(entity);
-            Ctx.SaveChanges();
+            return Context.Find<T>(id);
         }
-        public virtual void Update(T entity)
+        public void Insert(T entity)
         {
-            Ctx.Update(entity); 
-            Ctx.SaveChanges();
+            Context.Add(entity);
+            Context.SaveChanges();
         }
-        public virtual void Delete(object id)
+        public void Update(T entity)
         {
-            Ctx.Remove(id);
-            Ctx.SaveChanges();
+            Context.Update(entity);
+            Context.SaveChanges();
         }
-        
+        public void Delete(T entity)
+        {
+            Context.Remove(entity);
+            Context.SaveChanges();
+        }
+        public void DeleteAll(string id)
+        {
+            var entity = Get(id);
+            if (entity != null)
+            {
+                Delete(entity);
+            }
+        }
     }
 }

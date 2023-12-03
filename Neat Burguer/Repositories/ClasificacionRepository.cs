@@ -5,17 +5,43 @@ namespace Neat_Burguer.Repositories
 {
     public class ClasificacionRepository
     {
-        public ClasificacionRepository(NeatContext ctx) 
+      public NeatContext Context { get; set; }
+        public ClasificacionRepository(NeatContext context)
         {
-            Ctx = ctx;
+            Context = context;
         }
-        public NeatContext Ctx { get; }
-        public IEnumerable<Clasificacion>GetAll()
+        public IEnumerable<Clasificacion> GetAll()
         {
-            return Ctx.Clasificacion
+            return Context.Clasificacion
                 .Include(x => x.Menu)
                 .OrderBy(x => x.Nombre);
         }
+        public IEnumerable<Clasificacion> GetMenuByClasificacion(string clasificacion)
+        {
+            return Context.Clasificacion
+                .Where(x => x.Menu != null && x.Nombre == clasificacion)
+                .OrderBy(x => x.Nombre);
+        }
 
+        public Clasificacion? GetByName(string nombre)
+        {
+            return Context.Clasificacion
+                .FirstOrDefault(x => x.Nombre == nombre);
+        }
+        public void Insert(Clasificacion h)
+        {
+            Context.Add(h);
+            Context.SaveChanges();
+        }
+        public void Update(Clasificacion h)
+        {
+            Context.Update(h);
+            Context.SaveChanges();
+        }
+        public void Delete(Clasificacion h)
+        {
+            Context.Remove(h);
+            Context.SaveChanges();
+        }
     }
 }
