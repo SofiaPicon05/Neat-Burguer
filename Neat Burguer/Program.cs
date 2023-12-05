@@ -5,17 +5,22 @@ using Neat_Burguer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string? Db = builder.Configuration.GetConnectionString("DbConnection");
+
 builder.Services.AddDbContext<NeatContext>(x => x.UseMySql("server=localhost;user=root;password=root;database=neat",
  Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.34-mysql")));
 
 
+builder.Services.AddMvc();
+
 builder.Services.AddTransient<MenuRepository>();
 builder.Services.AddTransient<ClasificacionRepository>();
 
-builder.Services.AddMvc();
+
+
 var app = builder.Build();
 
-app.UseStaticFiles();
+app.UseFileServer();
 
 app.MapControllerRoute(name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

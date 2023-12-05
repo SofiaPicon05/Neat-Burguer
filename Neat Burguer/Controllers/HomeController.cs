@@ -30,19 +30,20 @@ namespace Neat_Burguer.Controllers
             // se buscan las burgues con promo
             var list = menurepos.GetAll()
                 .Where(x => x.PrecioPromocion > 0);
-            vm.INDF = list.Count();
-
-            // y luego el object en la database
-            var hamburguesa = list.ToList()[vm.INDX]; //
-            if(hamburguesa != null)
+            if (list != null && list.Any())
             {
-                vm.Nombre = hamburguesa.Nombre;
-                vm.Descripcion = hamburguesa.Descripción;
-                vm.Id = hamburguesa.Id;
-                vm.Precio = hamburguesa.Precio > 0 ? (decimal)hamburguesa.Precio : 0;
-                vm.PrecioPromocion = hamburguesa.PrecioPromocion > 0 ? (decimal)hamburguesa.PrecioPromocion : 0;
+                vm.INDF = list.Count();
+                // y luego el object en la database
+                var hamburguesa = list.ToList()[vm.INDX]; //
+                if (hamburguesa != null)
+                {
+                    vm.Nombre = hamburguesa.Nombre;
+                    vm.Descripcion = hamburguesa.Descripción;
+                    vm.Id = hamburguesa.Id;
+                    vm.Precio = hamburguesa.Precio > 0 ? (decimal)hamburguesa.Precio : 0;
+                    vm.PrecioPromocion = hamburguesa.PrecioPromocion > 0 ? (decimal)hamburguesa.PrecioPromocion : 0;
+                }
             }
-
             return View(vm);
         }
         [HttpGet]

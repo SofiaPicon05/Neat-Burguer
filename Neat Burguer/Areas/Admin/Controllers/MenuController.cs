@@ -6,6 +6,7 @@ using Neat_Burguer.Repositories;
 
 namespace Neat_Burguer.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class MenuController : Controller
     {
         public MenuController(ClasificacionRepository clasificacionRepository, MenuRepository menuRepository) 
